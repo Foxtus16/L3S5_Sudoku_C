@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
     // Gère les evenement en SDL
     SDL_Event e; 
     Position *p = initPosition(0,0);
-    NavigationMenu nav = MENUPRINCIPAL;
+    NavigationMenu nav = ENJEU;
     Difficulte diff = NEANT;
     // Boucle de jeu
     while(sudoku->enJeu){
@@ -103,6 +103,7 @@ int main(int argc, char** argv) {
                 SDL_RenderCopy(sudoku->rendu,sudoku->fdJeu,NULL,NULL);
                 SDL_RenderCopy(sudoku->rendu,sudoku->fdTitre
                                ,NULL,&sudoku->rectTitre);
+                dessinCadreGrille(sudoku);
                 /*! \todo !!! */
                 break;
             case ECRANFIN:
@@ -115,15 +116,6 @@ int main(int argc, char** argv) {
         *p = (Position){0,0};
         // Actualise le rendu à la fenetre
         SDL_RenderPresent(sudoku->rendu);
-
-//        SDL_RenderCopy(sudoku->rendu,test,NULL,NULL);
-        // Donne une couleur au rectangle
-//        SDL_SetRenderDrawColor(sudoku->rendu, 0x00, 0x00, 0x00, 0x00);
-        //Trace le rendu du rectangle
-//        SDL_RenderDrawRect(sudoku->rendu,&sudoku->rectMenu);
-        //Trace une ligne
-//        SDL_RenderDrawLine(sudoku->rendu, 0, 0, ECRAN_LARGEUR, ECRAN_HAUTEUR);
-        //Actualise l'écran
     }
     
     freeMenu(menuPrincipal);

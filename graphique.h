@@ -109,12 +109,22 @@ Boolean configureSudoku(Sudoku* sudoku);
 Boolean configMenu(Menu* menu, int nb, char** textBouton, SDL_Color cTxt,
                    Sudoku* sudoku);
 
-
 /*! \fn void dessinMenu(Menu* m, Sudoku* sudoku)
  *  \brief Dessine le cadre du menu et les boutons (renderCopy)
  *  \param m: textures du menu a afficher 
  *  \param sudoku: recupération du rendu ou afficher */
 void dessinMenu(Menu* m, Sudoku* sudoku);
+
+/*! \fn void dessinCadreGrille(Sudoku* sudoku)
+ *  \brief Dessine le cadre de la grille de sudoku 
+ *  \param sudoku: recupération du rendu ou afficher */
+void dessinCadreGrille(Sudoku* sudoku);
+
+/*! \fn void dessinGrille(Sudoku* sudoku, Grille* g)
+ *  \brief Dessine la grille en cours
+ *  \param sudoku: recupération du rendu ou afficher 
+ *  \param g: Grille sur laquelle on joue */
+void dessinGrille(Sudoku* sudoku, Grille* g);
 
 /*! \fn Boolean recupEntree(SDL_Event *e, Position *p)
  *  \brief Recupere les entree utilisateur au clavier et souris

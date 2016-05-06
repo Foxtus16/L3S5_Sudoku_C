@@ -209,6 +209,40 @@ void dessinMenu(Menu* m, Sudoku* sudoku){
         SDL_RenderCopy(sudoku->rendu,m->fdBouton[i],NULL,&m->rect[i]);
         SDL_RenderCopy(sudoku->rendu,m->fdTextBouton[i],NULL,&m->rectTxt[i]);
     }
+}
+
+void dessinCadreGrille(Sudoku* sudoku){
+    // Donne une couleur des dessins
+    SDL_SetRenderDrawColor(sudoku->rendu, 0x00, 0x00, 0x00, 0x00);
+    SDL_Rect rect = (SDL_Rect){ECRAN_LARGEUR/6, ECRAN_HAUTEUR/6,
+                               ECRAN_LARGEUR/1.5, ECRAN_HAUTEUR/1.5};
+    //Trace le rendu du rectangle
+    SDL_RenderDrawRect(sudoku->rendu,&rect);
+    int y=rect.y, x=rect.x , i, k; 
+    int pasY=rect.h/TAILLE, maxY=(rect.y+rect.h);
+    int pasX=rect.w/TAILLE, maxX=(rect.x+rect.w);
+    //Trace les lignes horizontales
+    for(i=y+pasY, k=1; i<maxY; i+=pasY+1, ++k){
+        //maxX-1 car sinn l'on depasse legerement de la grile
+        SDL_RenderDrawLine(sudoku->rendu, x, i, maxX-1, i);
+        // toutes les 3 lignes trace l'on va tracer une ligne plus grosse
+        if(k%3==0){
+            rect = (SDL_Rect){x,i,ECRAN_LARGEUR/1.5,3};
+            SDL_RenderFillRect(sudoku->rendu,&rect);
+        }
+    }
+    for(i=x+pasX, k=1; i<maxX; i+=pasX+1, ++k){
+        // x1,y1 , x2,y2
+        SDL_RenderDrawLine(sudoku->rendu, i, y, i, maxY-1);
+        // Toutes les 3 lignes on trace une plus grosse
+        if(k%3==0){
+            rect = (SDL_Rect){i,y,3,ECRAN_HAUTEUR/1.5};
+            SDL_RenderFillRect(sudoku->rendu,&rect);
+        }
+    }
+}
+
+void dessinGrille(Sudoku* sudoku, Grille* g){
     
 }
 
