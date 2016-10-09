@@ -1,24 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   main.c
- * Author: PC GAMER
+﻿/******************************************************************************!
+ * \file     main.c
+ * \author   Durand Kévin
+ * \author   Soupramanian Arnold
+ * \version  1.0
+ * \date     09/10/16
+ * \brief    Fichier main du sudoku
+ * 
  *
- * Created on 9 octobre 2016, 20:47
- */
+ ******************************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include "grille.h"
 /*
  * 
  */
 int main(int argc, char** argv) {
-
+    Grille *g = initGrille();
+    
+    afficherGrille(g);
+    
+    freeGrille(g);
     return (EXIT_SUCCESS);
 }
 
