@@ -6,7 +6,7 @@
  * \date     09/10/16
  * \brief    Déclaration des fonctions pour la grille de sudoku
  * 
- * \details  
+ * \details  Contient des structures fonctions pour gérer la grille de sudoku
  *
  * 
  ******************************************************************************/
@@ -16,6 +16,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "bilan_memoire.h"
+#include "macro.h"
 
 /*! \struct  Case
  *  \brief   Type pour les case d'une grille de sudoku

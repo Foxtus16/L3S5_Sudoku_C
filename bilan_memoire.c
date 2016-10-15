@@ -1,36 +1,32 @@
-/********************************************************************************************************************************************************
-*                                                                     Poker                                                                             *
-*********************************************************************************************************************************************************
-* Fichier: bilan_memoire.c
-* Version: 1.00
-* Description: Fonctions pour la comptabilisation du bilan mémoire
-*
-* Dernière modification de: Kévin
-* Faite le: 05/10/2015
-*
-* Modification faite: Ecriture de ce fichier
-*
-* Modification à faire: RAS
-*
-*********************************************************************************************************************************************************/
+/******************************************************************************!
+ * \file     bilan_memoire.h
+ * \author   Durand KÃ©vin
+ * \author   Soupramanian Arnold
+ * \version  1.0
+ * \date     15/10/16
+ * \brief    ImplÃ©mentation des fonctions interfaces d'allo dyn et fichiers
+ * 
+ * \details  Ces fonctions lancent les fonctions usuelles d'allocation 
+ *           dynamiques et d'ouverture de fichiers mais incrÃ©mentent une var
+ *           globales pour faire les comptes et Ã©viter les fuites
+ * 
+ * 
+ ******************************************************************************/
 
-/** Déclarations des variables globales (à éviter en C) **/
-// Ici on alloue de la mémoire pour ses variables et on les initialises
-// Elles sont alors accessible dans l'ensemble du projet (variable globales)
-// alors qu'en extern il ne fait que le  lien a ici pour les autres fonctions (optionnel pour prototype)
+#include "bilan_memoire.h"
+
+/*! Variables global pour le compteur mÃ©moire */
 int NB_MALLOC=0;
 int NB_FREE=0;
 int NB_FOPEN=0;
 int NB_FCLOSE=0;
 
-/** Déclaration des fonctions **/
-/* Allocation/Comptabilité Memoire ---------------------------------------------------------------------------------------------------------------------*/
-void *mon_malloc (size_t size){  // Le type size_t permet de récupérer la taille du type mis en paramètre
+void *mon_malloc (size_t size){  
     NB_MALLOC++;
-    return malloc(size); // Retourne simplement un malloc mais incrémente la variable au passage
+    return malloc(size); 
 }
 
-void mon_free (void *ptr){ // Toujours le même principe
+void mon_free (void *ptr){ 
     NB_FREE++;
     free(ptr);
 }
@@ -50,9 +46,9 @@ void mon_fclose(FILE* fichier_ouvert){
     fclose(fichier_ouvert);
 }
 
-// Affiche un message en cas de problème memoire
 void bilan_memoire(void){
     FILE* fichier_memoire = NULL;
+    NB_FOPEN++;
     fichier_memoire = fopen ("bilan_memoire.txt","w");
 
     if( NB_MALLOC!=NB_FREE )
@@ -64,5 +60,6 @@ void bilan_memoire(void){
     else
         fprintf(fichier_memoire,"Pas d'erreur memoire : %d fichiers ouverts et %d fichiers fermes !\n",NB_FOPEN,NB_FCLOSE);
 
+    NB_FCLOSE++;
     fclose(fichier_memoire);
 }

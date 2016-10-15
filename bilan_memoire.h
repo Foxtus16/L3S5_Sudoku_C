@@ -1,38 +1,57 @@
-/********************************************************************************************************************************************************
-*                                                                     Poker                                                                             *
-*********************************************************************************************************************************************************
-* Fichier: bilan_memoire.h
-* Version: 1.00
-* Description: D�claration des fonctions, constantes et macro pour faire un bilan m�moire, ce fichier est adaptable selon le projet en couple avec le .c
-*
-* Derni�re modification de: K�vin
-* Faite le: 21/07/2015
-*
-* Modification faite: Ecriture de ce fichier
-*
-* Modification � faire: RAS
-*
-*********************************************************************************************************************************************************/
+﻿/******************************************************************************!
+ * \file     bilan_memoire.h
+ * \author   Durand Kévin
+ * \author   Soupramanian Arnold
+ * \version  1.0
+ * \date     15/10/16
+ * \brief    Déclaration des fonctions interfaces d'allo dynamique et fichiers
+ * 
+ * \details  Ces fonctions lancent les fonctions usuelles d'allocation 
+ *           dynamiques et d'ouverture de fichiers mais incrémentent une var
+ *           globales pour faire les comptes dans un fichier 
+ *           Il faut inclure ce fichier à chaque fois pour chaque module.
+ * 
+ * 
+ ******************************************************************************/
 
 #ifndef BILAN_MEMOIRE_H
 #define BILAN_MEMOIRE_H
 
-    #include "bilan_memoire.c"
+#include "stdlib.h"
+#include "stdio.h"
 
-/** D�claration des constantes, macros **/
-    #define malloc(X) mon_malloc(X) // La fonction mon_malloc(X) prend comme nom malloc(X)
-    #define free(X) mon_free(X)
-    #define calloc(Y,X) mon_calloc(Y,X)
-    #define fopen(X,Y) mon_fopen(X,Y)
-    #define fclose(X) mon_fclose(X)
+/*! \fn void *mon_malloc (size_t size)
+ *  \brief Fonction appelant malloc et incrémente NB_MALLOC (global).
+ *  \param size: Taille à allouer (type size_t standard) 
+ *  \return Renvoit un pointeur vers l'espace mémoire crée */
+void *mon_malloc (size_t size);
 
-/** Liens des prototypes de fonctions **/
-/* Allocation/Comptabilit� Memoire ----------------------------------------------------------------------------------------------------------------------*/
-    extern void *mon_malloc (size_t size);
-    extern void mon_free (void *ptr);
-    extern void *mon_calloc(size_t taille, size_t size);
-    extern void *mon_fopen(const char* chemin_fichier,const char* type_operation);
-    extern void mon_fclose(FILE* fichier_ouvert);
-    extern void bilan_memoire(void);
+/*! \fn void mon_free (void *ptr)
+ *  \brief Libère l'espace mémoire alloué et incrémente NB_FREE
+ *  \param ptr: Pointeur vers l'espace mémoire alloué dynamiquement */
+void mon_free (void *ptr);
+
+/*! \fn void *mon_calloc(size_t taille, size_t size)
+ *  \brief Lance calloc et incrémente NB_MALLOC
+ *  \param taille: nb d'espace mémoire à allouer
+ *  \param size:   espace mémoire à allouer  
+ *  \return Renvoit un pointeur vers l'espace mémoire crée */
+void *mon_calloc(size_t taille, size_t size);
+
+/*! \fn void *mon_fopen(const char* chemin_fichier,const char* type_operation)
+ *  \brief Lance la fonction fopen et incrémente NB_OPEN
+ *  \param chemin_fichier: Chemin du fichier
+ *  \param yype_operation: Paramètre de la fonction fopen ("w","r",..) 
+ *  \return Renvoit le pointeur du fichier crée */
+void *mon_fopen(const char* chemin_fichier,const char* type_operation);
+
+/*! \fn void mon_fclose(FILE* fichier_ouvert)
+ *  \brief Lance fclose et incrémente NB_CLOSE
+ *  \param fichier_ouvert: Ferme le fichier associé à ce pointeur */
+void mon_fclose(FILE* fichier_ouvert);
+
+/*! \fn void bilan_memoire(void)
+ *  \brief Ecrit le bilan mémoire dans un fichier placé à la racine du projet */
+void bilan_memoire(void);
 
 #endif // BILAN_MEMOIRE_H

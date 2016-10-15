@@ -19,7 +19,7 @@ void initCase(Case *c){
 
 Grille *initGrille(){
     Grille* g = (Grille*)malloc(sizeof(Grille));
-    g->longueur = g->hauteur = 9;
+    g->longueur = g->hauteur = TAILLE;
     g->c = (Case**)malloc(sizeof(Case*)*g->longueur);
     
     int i,j;
@@ -38,6 +38,7 @@ void freeGrille(Grille *g){
     for(i=0;i<(g->longueur);i++){
         free(&g->c[i]);
     }
+    free(&g->c);
     free(g);
 }
 
