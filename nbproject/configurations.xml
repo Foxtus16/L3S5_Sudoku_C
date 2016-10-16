@@ -4,7 +4,11 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>bilan_memoire.h</itemPath>
       <itemPath>grille.h</itemPath>
+      <itemPath>macro.h</itemPath>
+      <itemPath>resolution.h</itemPath>
+      <itemPath>test.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -13,8 +17,11 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>bilan_memoire.c</itemPath>
       <itemPath>grille.c</itemPath>
       <itemPath>main.c</itemPath>
+      <itemPath>resolution.c</itemPath>
+      <itemPath>test.c</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -38,11 +45,25 @@
       </toolsSet>
       <compileType>
       </compileType>
+      <item path="bilan_memoire.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="bilan_memoire.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="grille.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="grille.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="macro.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="resolution.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="resolution.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="test.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -65,11 +86,25 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="bilan_memoire.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="bilan_memoire.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="grille.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="grille.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="macro.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="resolution.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="resolution.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="test.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

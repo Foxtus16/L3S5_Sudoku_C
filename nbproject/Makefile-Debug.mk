@@ -38,7 +38,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/bilan_memoire.o \
 	${OBJECTDIR}/grille.o \
 	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/resolution.o
+	${OBJECTDIR}/resolution.o \
+	${OBJECTDIR}/test.o
 
 
 # C Compiler Flags
@@ -84,6 +85,11 @@ ${OBJECTDIR}/resolution.o: resolution.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/resolution.o resolution.c
+
+${OBJECTDIR}/test.o: test.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/test.o test.c
 
 # Subprojects
 .build-subprojects:

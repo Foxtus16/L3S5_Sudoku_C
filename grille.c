@@ -13,6 +13,17 @@
 
 #include "grille.h"
 
+void initPosition(Position *p){
+    p->x = p->y = 0;
+}
+
+int estValidePosition(Position *p){
+    if(  (p->x)>=0 && (p->x)<TAILLE 
+       &&(p->y)>=0 && (p->y)<TAILLE )
+        return TRUE;
+    return FALSE;
+}
+
 void initCase(Case *c){
     c->valeur = c->constante = c->solution = 0;
 }
