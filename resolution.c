@@ -16,7 +16,7 @@
 int estDansLigne(int val, Grille *g, Position *p){
     int j;
     //g->c[ligne][colonne], l'on fait donc varier la colonne 
-    for(j=0;i<TAILLE;j++){
+    for(j=0;j<TAILLE;j++){
         if(g->c[p->y][j].valeur == val)
             return TRUE;
     }
@@ -43,7 +43,7 @@ int estDansSsReg(int val, Grille *g, Position *p){
     int i,j;
     for(i=o.y; i<(o.y+3); i++){
         for(j=o.x; j<(o.y+3); j++){
-            if(g->c[i][j]==val)
+            if(g->c[i][j].valeur==val)
                 return TRUE;
         }
     }
