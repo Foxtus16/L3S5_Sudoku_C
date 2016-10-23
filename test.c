@@ -72,6 +72,7 @@ Grille* testGrille(){
             if (grille[i][j]){
                 g->c[i][j].valeur = grille[i][j];
                 g->c[i][j].constante = TRUE;
+                g->c[i][j].solution = grille[i][j];
             }
         }
     }
@@ -106,9 +107,9 @@ void testAffichageGrille(Grille *g){
 void testResolution(Grille *g){
     Position *p = initPosition(0,0);
     int k=-1;
-    
-    
-    
+    clock_t start, end;
+    double temps=0;
+
     if(grilleResolue(g)) printf("\n Grille resolue ! \n");
     else  printf("\n Grille pas resolue ! \n");
     
@@ -133,15 +134,66 @@ void testResolution(Grille *g){
     printf("\n\n");
     afficherChemin(chemin);
     
-    
-    
+    // Chronometre le temps de résolution 
+    start=clock();
     estResolue(g,chemin);
+    end=clock();
+    temps+=((double)end-start)/CLOCKS_PER_SEC;
+   
+    printf("\ntemps pour résoudre: %lf \n",temps);
     
-    
+    if(grilleResolue(g)) printf("\n Grille resolue ! \n");
+    else  printf("\n Grille pas resolue ! \n");
     afficherGrille(g);
     
     
     free(p);
     freeChemin(chemin);
     printf("\n");
+   
+}
+
+void testResolutionGrilleVide(void){
+    Grille*ga = initGrille();
+    Checkpoint* chemin = cheminBacktracking(ga);
+
+
+    afficherGrille(ga);
+    estResolue(ga,chemin);
+    afficherGrille(ga);
+
+    freeChemin(chemin);
+    freeGrille(ga);
+}
+
+void testSDL(void){
+    // Fenetre ou tout va s'afficher
+    SDL_Window* fenetre = NULL;
+    // Surface contenu dans la fenetre
+    SDL_Surface* ecran = NULL;
+    if(!initSDL(fenetre,ecran)){
+        printf("Erreur lors de la création fenêtre SDL");
+        exit(404);
+    }
+    // Pour savoir lorsque l'on quitte le programme
+    int quitter = FALSE;
+    // Gère les evenement en SDL
+    SDL_Event e;
+    // Boucle de jeu
+    while(!quitter){
+        // FILE des événements (interaction clavier/souris, joystick, etc..)
+        // Boucle d'événement jusqu'à ce que la FILE soit vide
+        while(!SDL_PollEvent(&e)){
+            //Si on ferme la fenêtre SDL
+            switch(e.type){
+                case SDL_QUIT:
+                    quitter = TRUE;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    
+    quitSDL(fenetre,ecran);
 }

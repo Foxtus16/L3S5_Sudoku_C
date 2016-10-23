@@ -23,12 +23,16 @@
     #define calloc(Y,X) mon_calloc(Y,X)
     #define fopen(X,Y) mon_fopen(X,Y)
     #define fclose(X) mon_fclose(X)
+    #define IMG_Load(X) mon_IMG_Load(X)
+    #define SDL_FreeSurface(X) mon_SDL_free(X)
 
     /*! Constantes de sudoku */
     #define REG    3
     #define TAILLE 9
     #define TRUE   1
     #define FALSE  0
+    #define SCREEN_WIDTH  640
+    #define SCREEN_HEIGHT 480
 
 #endif /* MACRO_H */
 

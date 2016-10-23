@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>bilan_memoire.h</itemPath>
+      <itemPath>graphique.h</itemPath>
       <itemPath>grille.h</itemPath>
       <itemPath>macro.h</itemPath>
       <itemPath>resolution.h</itemPath>
@@ -18,6 +19,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>bilan_memoire.c</itemPath>
+      <itemPath>graphique.c</itemPath>
       <itemPath>grille.c</itemPath>
       <itemPath>main.c</itemPath>
       <itemPath>resolution.c</itemPath>
@@ -45,6 +47,7 @@
       </toolsSet>
       <compileType>
         <cTool>
+          <architecture>1</architecture>
           <incDir>
             <pElem>../build/include</pElem>
           </incDir>
@@ -55,10 +58,17 @@
             <pElem>../build/include</pElem>
           </incDir>
         </ccTool>
+        <linkerTool>
+          <commandLine>-lmingw32 -lSDL2main -lSDL2</commandLine>
+        </linkerTool>
       </compileType>
       <item path="bilan_memoire.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="bilan_memoire.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="graphique.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="graphique.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="grille.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -79,7 +89,7 @@
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
-        <compilerSet>default</compilerSet>
+        <compilerSet>MinGW|MinGW</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
@@ -100,6 +110,10 @@
       <item path="bilan_memoire.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="bilan_memoire.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="graphique.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="graphique.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="grille.c" ex="false" tool="0" flavor2="0">
       </item>

@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/bilan_memoire.o \
+	${OBJECTDIR}/graphique.o \
 	${OBJECTDIR}/grille.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/resolution.o \
@@ -70,6 +71,11 @@ ${OBJECTDIR}/bilan_memoire.o: bilan_memoire.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/bilan_memoire.o bilan_memoire.c
+
+${OBJECTDIR}/graphique.o: graphique.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/graphique.o graphique.c
 
 ${OBJECTDIR}/grille.o: grille.c 
 	${MKDIR} -p ${OBJECTDIR}

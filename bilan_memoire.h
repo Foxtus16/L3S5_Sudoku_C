@@ -17,8 +17,9 @@
 #ifndef BILAN_MEMOIRE_H
 #define BILAN_MEMOIRE_H
 
-#include "stdlib.h"
-#include "stdio.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <SDL2/SDL.h>
 
 /*! \fn void *mon_malloc (size_t size)
  *  \brief Fonction appelant malloc et incrémente NB_MALLOC (global).
@@ -49,6 +50,16 @@ void *mon_fopen(const char* chemin_fichier,const char* type_operation);
  *  \brief Lance fclose et incrémente NB_CLOSE
  *  \param fichier_ouvert: Ferme le fichier associé à ce pointeur */
 void mon_fclose(FILE* fichier_ouvert);
+
+/*! \fn void mon_fclose(FILE* fichier_ouvert)
+ *  \brief Lance IMG_Load et incrémente NB_SURFACEALLOUE
+ *  \param file: chemin de l'image chargé */
+SDL_Surface* mon_IMG_Load(const char* file);
+
+/*! \fn void mon_SDL_free(SDL_Surface*surface)
+ *  \brief Lance SDL_FreeSurface et incrémente NB_FREESURFACE
+ *  \param surface: Surface libérée */
+void mon_SDL_free(SDL_Surface* surface);
 
 /*! \fn void bilan_memoire(void)
  *  \brief Ecrit le bilan mémoire dans un fichier placé à la racine du projet */

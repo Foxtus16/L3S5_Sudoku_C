@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/bilan_memoire.o \
+	${OBJECTDIR}/graphique.o \
 	${OBJECTDIR}/grille.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/resolution.o \
@@ -43,7 +44,7 @@ OBJECTFILES= \
 
 
 # C Compiler Flags
-CFLAGS=
+CFLAGS=-m32
 
 # CC Compiler Flags
 CCFLAGS=
@@ -64,12 +65,17 @@ LDLIBSOPTIONS=
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/l3s5_sudoku_c.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/l3s5_sudoku_c ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/l3s5_sudoku_c ${OBJECTFILES} ${LDLIBSOPTIONS} -lmingw32 -lSDL2main -lSDL2
 
 ${OBJECTDIR}/bilan_memoire.o: bilan_memoire.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -Wall -I../build/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/bilan_memoire.o bilan_memoire.c
+
+${OBJECTDIR}/graphique.o: graphique.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -Wall -I../build/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/graphique.o graphique.c
 
 ${OBJECTDIR}/grille.o: grille.c 
 	${MKDIR} -p ${OBJECTDIR}

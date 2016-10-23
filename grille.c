@@ -69,6 +69,7 @@ void afficherGrille(Grille *g){
             if(j%3==0) 
                 printf("|");
             printf("%2d ",g->c[i][j].valeur);
+//            printf("%d",g->c[i][j].solution)
         }
         printf("|\n");
     }

@@ -1,2 +1,2 @@
-Pas d'erreur memoire : 130 allocations  et 130 liberation !
+Pas d'erreur memoire : 0 allocations  et 0 liberation !
 Pas d'erreur memoire : 1 fichiers ouverts et 1 fichiers fermes !

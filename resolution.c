@@ -82,18 +82,19 @@ void freeChemin(Checkpoint* chemin){
     // libere la tête et sa position
     while(chemin){
         tmp = chemin;
-        chemin = chemin->next_;
         free(tmp->p_);
         free(tmp);
+        chemin = chemin->next_;
     }
 }
 
-Arbre* initArbre(){
+Arbre* initArbre(Grille *g){
     Arbre *arb = (Arbre*)malloc(sizeof(Arbre));
     int i;
     for(i=0;i<TAILLE;i++){
         arb->c[i] = NULL;
     }
+    arb->g = g;
     return arb;
 }
 
@@ -138,7 +139,7 @@ int estPossible(int val, Grille *g, Position *p){
    // Vérifie que la position est correcte
     if(estValidePosition(p)){
          // Vérifie que la case est vide et non constante
-        if(!g->c[p->y][p->x].valeur && !g->c[p->y][p->x].constante){
+        if(g->c[p->y][p->x].valeur==0 && g->c[p->y][p->x].constante==FALSE){
             // on vérifie les 3 conditions 
             if(    !estDansLigne(val,g,p)
                 && !estDansCol  (val,g,p)
@@ -150,41 +151,64 @@ int estPossible(int val, Grille *g, Position *p){
     return FALSE;
 }
 
+int grilleComplete(Grille *g){
+    Position *p = initPosition(0,0);
+    for(p->y=0;p->y<(g->longueur);p->y++){
+        for(p->x=0;p->x<(g->hauteur);p->x++){
+            if(g->c[p->y][p->x].valeur == 0){
+                free(p);
+                return FALSE;
+            }
+        }
+    }
+    free(p);
+    return TRUE;
+}
+
 int estResolue(Grille *g, Checkpoint* chemin){
-    if(!chemin) return TRUE;
+    // Des qu'on arrive à la fin du chemin
+    if(!chemin){
+        // Si la grille a été complété alors on a finit de resoudre
+        if(grilleComplete(g))return  TRUE;
+        else                 return  FALSE;
+    }
+    Checkpoint* raccourci = NULL;
     int k;
     // Chaque grille de sudoku a obligatoirement une solution 
     for(k=1;k<=TAILLE;k++){
         //On vérifie déjà si la valeur est placable sinon on passe à la suivant
         if(estPossible(k,g,chemin->p_)){
             //On place la valeur dans la case et l'on teste la case suivante
-            g->c[chemin->p_->y][chemin->p_->x].valeur   = k;
+            g->c[chemin->p_->y][chemin->p_->x].valeur = k;
+            //On recrée un nouveau chemin avec ce choix
+            raccourci= cheminBacktracking(g);
             // si l'on atteind la fin alors on place les solutions et fin
-            if(estResolue(g,chemin->next_)){
+            if(estResolue(g,raccourci)){
                 g->c[chemin->p_->y][chemin->p_->x].valeur   = k;
                 g->c[chemin->p_->y][chemin->p_->x].solution = k;
+                freeChemin(raccourci);
                 return TRUE;
             }
             // sinon on remet cette case à 0
             g->c[chemin->p_->y][chemin->p_->x].valeur   = 0;
+            // et on libere ce chemin 
+            freeChemin(raccourci);
         }
     }
-    // Lorsque que l'on a exploré toute les possibilités de placement
+    //Lorsque que l'on a exploré toute les possibilités de placement
     // l'on va reprendre dans le for du noeud précédent 
     return FALSE;
 }
 
 int grilleResolue(Grille *g){
     Position *p = initPosition(0,0);
-    int val=0;
+    int val=0,sol=0;
     for(p->y=0;p->y<(g->longueur);p->y++){
         for(p->x=0;p->x<(g->hauteur);p->x++){
             val=g->c[p->y][p->x].valeur;
-            // Si une case vide la grille non complétée
-            if( (val==0) || 
-                ( !estDansLigne(val,g,p)
-               && !estDansCol  (val,g,p)
-               && !estDansSsReg(val,g,p)) ){
+            sol=g->c[p->y][p->x].solution;
+            // Si une case vide || deja dans ligne/col/ssReg 
+            if( val!= sol || val==0){
                 free(p);
                 return FALSE;
             }

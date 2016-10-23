@@ -65,12 +65,14 @@ void freeChemin(Checkpoint* chemin);
  *  \details L'on peut ainsi parcourir notre grille à l'aide du backtracking */
 typedef struct arbre{
     struct arbre* c[9];
+    Grille *g;
 }Arbre;
 
 /*! \fn Arbre* initArbre()
  *  \brief Initialise le tableau d'arbre à null
+ *  \param g:   Grille où l'on travaille
  *  \return l'arbre crée */
-Arbre* initArbre();
+Arbre* initArbre(Grille *g);
 
 /*! \fn int int estDansLigne(int val, Grille *g, Position *p)
  *  \brief Vérifie si le chiffre est déjà présent dans la ligne 
@@ -106,6 +108,12 @@ int estDansSsReg(int val, Grille *g, Position *p);
  *  \return Renvoit TRUE si possible sinon FALSE */
 int estPossible(int val, Grille *g, Position *p);
 
+/*! \fn int grilleComplete(Grille *g)
+ *  \brief Indique si la grille a été remplie (pas forcement bien)
+ *  \param g:   Grille de sudoku où l'on travaille
+ *  \return Renvoit TRUE si remplie sinon FALSE */
+int grilleComplete(Grille *g);
+
 /*! \fn int estResolue(Grille *g, Checkpoint* chemin)
  *  \brief Fonction récursive pour résoudre le sudoku
  *  \details Cette fonction va parcourir le chemin en testant chaque 
@@ -114,12 +122,13 @@ int estPossible(int val, Grille *g, Position *p);
  *          teste une autre possibilité ainsi de suite jusqu'à l'arrivée 
  *  \param g: Grille de sudoku où l'on travaille
  *  \param Chemin: Chemin emprunté par notre backtracking
+ *  \pre   On verifie que l'on est pas à la fin du chemin 
  *  \return Renvoit TRUE si l'on atteind la fin du chemin
  *          sinon renvoit FALSE */
-int estResolue(Grille *g, Checkpoint* chemin);
+int estResolue(Grille *g,Checkpoint* chemin);
 
 /*! \fn int grilleResolue(Grille *g)
- *  \brief Indique si la grille a été résolue
+ *  \brief Indique si la grille a été résolue pour intéraction avec joueur
  *  \param g:   Grille de sudoku où l'on travaille
  *  \pre On vérifie que toutes les cases soient remplies
  *       On vérifie que chaque valeur est possible
