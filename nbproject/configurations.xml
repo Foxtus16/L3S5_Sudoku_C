@@ -44,6 +44,17 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <incDir>
+            <pElem>../build/include</pElem>
+          </incDir>
+          <warningLevel>2</warningLevel>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>../build/include</pElem>
+          </incDir>
+        </ccTool>
       </compileType>
       <item path="bilan_memoire.c" ex="false" tool="0" flavor2="0">
       </item>

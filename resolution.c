@@ -1,4 +1,4 @@
-﻿/******************************************************************************!
+/******************************************************************************!
  * \file     resolution.h
  * \author   Durand Kévin
  * \author   Soupramanian Arnold
@@ -13,10 +13,94 @@
 
 #include "resolution.h"
 
+Checkpoint* initCheckpoint(Position *p, int nbSol){
+    Checkpoint *chk = (Checkpoint*)malloc(sizeof(Checkpoint));
+    
+    chk->nbSol_ = nbSol;
+    chk->p_ = p;
+    chk->next_ = NULL;
+    return chk;
+}
+
+Checkpoint* insertCheckpointTrie(Checkpoint* chemin, Checkpoint* chk){
+    // Ajouter en tête si chemin vide ou checkpoint a moins de solution que tête
+    if (!chemin || chemin->nbSol_ >= chk->nbSol_){ 
+        chk->next_ = chemin;
+        return chk;
+    }
+    
+    Checkpoint *tmp = chemin;
+    // Tant que le prochain element non null 
+    // et que sa valeur est inferieure a celle du maillon
+    while(chemin->next_ && chemin->next_->nbSol_ < chk->nbSol_)
+        chemin=chemin->next_; // on passe au suivant meme test
+
+    // On court-circuite en donnant au suivant de notre checkpoint 
+    // le checkpoint suivant ou l'on s'est arrêté, celui si devenant
+    // notre checkpoint donc la liste se continue sans encombre
+    chk->next_ = chemin->next_;
+    chemin->next_ = chk; // et le suivant de la liste on le met a maillon
+
+    return tmp;
+}
+
+Checkpoint* cheminBacktracking(Grille* g){
+    Checkpoint *chemin = NULL;
+    Position *p = initPosition(0,0);
+    int cpt,k;
+    //On va commencer a créer notre chemin
+    for(p->y=0 ;p->y<(g->longueur); p->y++){
+        for(p->x=0; p->x<(g->hauteur); p->x++){
+            for(k=1,cpt=0; k<=TAILLE; k++){
+                if(estPossible(k,g,p)){
+                    cpt++;
+                }
+            }
+            if(cpt!=0){
+                chemin = insertCheckpointTrie(chemin,
+                                 initCheckpoint(initPosition(p->y,p->x),cpt) );
+            }
+        }
+    }
+    free(p);
+    return chemin;
+}
+
+void afficherChemin(Checkpoint* chemin){
+    if(!chemin) return;
+    while(chemin){
+        printf("[%d][%d]=",chemin->p_->y,chemin->p_->x);
+        printf("%d->",chemin->nbSol_);
+        chemin = chemin->next_;
+    }
+    printf("NULL\n");
+}
+
+void freeChemin(Checkpoint* chemin){
+    Checkpoint *tmp;
+    // Récupère la tête dans un tmp, avance dans la liste 
+    // libere la tête et sa position
+    while(chemin){
+        tmp = chemin;
+        chemin = chemin->next_;
+        free(tmp->p_);
+        free(tmp);
+    }
+}
+
+Arbre* initArbre(){
+    Arbre *arb = (Arbre*)malloc(sizeof(Arbre));
+    int i;
+    for(i=0;i<TAILLE;i++){
+        arb->c[i] = NULL;
+    }
+    return arb;
+}
+
 int estDansLigne(int val, Grille *g, Position *p){
     int j;
     //g->c[ligne][colonne], l'on fait donc varier la colonne 
-    for(j=0;i<TAILLE;j++){
+    for(j=0;j<TAILLE;j++){
         if(g->c[p->y][j].valeur == val)
             return TRUE;
     }
@@ -42,8 +126,8 @@ int estDansSsReg(int val, Grille *g, Position *p){
     
     int i,j;
     for(i=o.y; i<(o.y+3); i++){
-        for(j=o.x; j<(o.y+3); j++){
-            if(g->c[i][j]==val)
+        for(j=o.x; j<(o.x+3); j++){
+            if(g->c[i][j].valeur==val)
                 return TRUE;
         }
     }
@@ -53,8 +137,8 @@ int estDansSsReg(int val, Grille *g, Position *p){
 int estPossible(int val, Grille *g, Position *p){
    // Vérifie que la position est correcte
     if(estValidePosition(p)){
-         // Vérifie s'il ne s'agit pas d'une constante
-        if(!g->c[p->y][p->x].constante){
+         // Vérifie que la case est vide et non constante
+        if(!g->c[p->y][p->x].valeur && !g->c[p->y][p->x].constante){
             // on vérifie les 3 conditions 
             if(    !estDansLigne(val,g,p)
                 && !estDansCol  (val,g,p)
@@ -64,4 +148,48 @@ int estPossible(int val, Grille *g, Position *p){
         }
     }
     return FALSE;
+}
+
+int estResolue(Grille *g, Checkpoint* chemin){
+    if(!chemin) return TRUE;
+    int k;
+    // Chaque grille de sudoku a obligatoirement une solution 
+    for(k=1;k<=TAILLE;k++){
+        //On vérifie déjà si la valeur est placable sinon on passe à la suivant
+        if(estPossible(k,g,chemin->p_)){
+            //On place la valeur dans la case et l'on teste la case suivante
+            g->c[chemin->p_->y][chemin->p_->x].valeur   = k;
+            // si l'on atteind la fin alors on place les solutions et fin
+            if(estResolue(g,chemin->next_)){
+                g->c[chemin->p_->y][chemin->p_->x].valeur   = k;
+                g->c[chemin->p_->y][chemin->p_->x].solution = k;
+                return TRUE;
+            }
+            // sinon on remet cette case à 0
+            g->c[chemin->p_->y][chemin->p_->x].valeur   = 0;
+        }
+    }
+    // Lorsque que l'on a exploré toute les possibilités de placement
+    // l'on va reprendre dans le for du noeud précédent 
+    return FALSE;
+}
+
+int grilleResolue(Grille *g){
+    Position *p = initPosition(0,0);
+    int val=0;
+    for(p->y=0;p->y<(g->longueur);p->y++){
+        for(p->x=0;p->x<(g->hauteur);p->x++){
+            val=g->c[p->y][p->x].valeur;
+            // Si une case vide la grille non complétée
+            if( (val==0) || 
+                ( !estDansLigne(val,g,p)
+               && !estDansCol  (val,g,p)
+               && !estDansSsReg(val,g,p)) ){
+                free(p);
+                return FALSE;
+            }
+        }
+    }
+    free(p);
+    return TRUE;
 }

@@ -1,4 +1,4 @@
-﻿/******************************************************************************!
+/******************************************************************************!
  * \file     grille.c
  * \author   Durand Kévin
  * \author   Soupramanian Arnold
@@ -13,8 +13,10 @@
 
 #include "grille.h"
 
-void initPosition(Position *p){
-    p->x = p->y = 0;
+Position* initPosition(int y, int x){
+    Position *p = (Position*)malloc(sizeof(Position));
+    *p = (Position){y,x};
+    return p;
 }
 
 int estValidePosition(Position *p){

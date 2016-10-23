@@ -1,4 +1,4 @@
-﻿/******************************************************************************!
+/******************************************************************************!
  * \file     test.h
  * \author   Durand Kévin
  * \author   Soupramanian Arnold
@@ -19,16 +19,22 @@
 #include "bilan_memoire.h"
 #include "macro.h"
         
-/*! \todo Rajouter batterie de test pour grille.h*/
+/*! \todo Rajouter batterie de test pour grille.h */
 #include "grille.h"
-/*! */
-void testGrille(); 
-        
-        
 /*! \todo Rajouter batterie de test pour resolution.h*/
 #include "resolution.h"
+
+/*! */
+Grille* testGrille();
+
+void testAffichageGrille(Grille *g);
+
+void testResolution(Grille *g);
+
+
         
         
+
 
 #endif /* TEST_H */
 

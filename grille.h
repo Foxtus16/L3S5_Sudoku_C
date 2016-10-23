@@ -1,4 +1,4 @@
-﻿/******************************************************************************!
+/******************************************************************************!
  * \file     grille.h
  * \author   Durand Kévin
  * \author   Soupramanian Arnold
@@ -24,8 +24,8 @@
  *  \details Cette structue sert pour déterminer où placer une valeur sur la 
  *           grille de sudoku dont l'origine est en haut à gauche */
 typedef struct Position{
-    int x; /*!< axe des abscisses (colonne) */
     int y; /*!< axe des ordonnées (ligne) */
+    int x; /*!< axe des abscisses (colonne) */
 }Position;
 
 /*! \struct  Case
@@ -44,10 +44,11 @@ typedef struct Grille{
     int longueur, hauteur; /*!< Dimensions de la grille*/ 
 }Grille;
 
-/*! \fn void initPosition(Position *p)
+/*! \fn Position* initPosition(int y, int x)
  *  \brief Init une Position 
- *  \param p: initialise les champs de position à 0 */
-void initPosition(Position *p);
+ *  \param p: initialise les champs de position à 0 
+ *  \return Un élément Position alloué dynamiquement à libérer*/
+Position* initPosition(int y, int x);
 
 /*! \fn int estValidePosition(Position *p)
  *  \brief Vérifie que la position ne sort pas de la grille
