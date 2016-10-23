@@ -69,9 +69,9 @@ void bilan_memoire(void){
     else
         fprintf(fichier_memoire,"Pas d'erreur memoire : %d allocations  et %d liberation !\n",NB_MALLOC,NB_FREE);
     if (NB_SURFACEALLOUE!=NB_FREESURFACE)
-        fprintf(stderr,"Erreur memoire: %d surfaces allouée et %d liberation de surfaces\n",NB_SURFACEALLOUE,NB_FREESURFACE);
+        fprintf(fichier_memoire,"Erreur memoire: %d surfaces allouée et %d liberation de surfaces\n",NB_SURFACEALLOUE,NB_FREESURFACE);
     else
-        printf("Pas d'erreur memoire : %d surfaces allouée et %d liberation !\n",NB_SURFACEALLOUE,NB_FREESURFACE);
+        fprintf(fichier_memoire,"Pas d'erreur memoire : %d surfaces allouée et %d liberation !\n",NB_SURFACEALLOUE,NB_FREESURFACE);
     if (NB_FOPEN!=NB_FCLOSE)
         fprintf(fichier_memoire,"Erreur memoire: %d fichiers ouverts et %d fichiers fermes\n",NB_FOPEN,NB_FCLOSE);
     else

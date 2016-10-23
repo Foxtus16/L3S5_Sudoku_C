@@ -1,2 +1,3 @@
 Pas d'erreur memoire : 0 allocations  et 0 liberation !
+Erreur memoire: 0 surfaces allouée et 1 liberation de surfaces
 Pas d'erreur memoire : 1 fichiers ouverts et 1 fichiers fermes !

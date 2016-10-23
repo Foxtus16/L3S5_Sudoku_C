@@ -30,7 +30,7 @@ int initSDL(SDL_Window* w, SDL_Surface* screen){
     }
     //Création de la surface écran
     screen = SDL_GetWindowSurface(w);
-    
+
     return TRUE;
 }
 
