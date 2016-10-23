@@ -1,4 +1,4 @@
-﻿/******************************************************************************!
+/******************************************************************************!
  * \file     macro.h
  * \author   Durand Kévin
  * \author   Soupramanian Arnold
@@ -9,7 +9,7 @@
  * \details  Regroupe les define utilisé dans le programme en plus des macros 
  *           car l'on ne sait jamais dans quel ordre le compilateur va opérer
  *           donc au moins l'on incluera cette bibliothèque après redéfinition 
- *           des fonctions
+ *           des fonctions pour éviter la récursivité infinie
  * 
  * 
  ******************************************************************************/

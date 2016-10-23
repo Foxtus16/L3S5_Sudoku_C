@@ -49,6 +49,7 @@ void mon_fclose(FILE* fichier_ouvert){
 void bilan_memoire(void){
     FILE* fichier_memoire = NULL;
     NB_FOPEN++;
+    NB_FCLOSE++;
     fichier_memoire = fopen ("bilan_memoire.txt","w");
 
     if( NB_MALLOC!=NB_FREE )
@@ -60,6 +61,5 @@ void bilan_memoire(void){
     else
         fprintf(fichier_memoire,"Pas d'erreur memoire : %d fichiers ouverts et %d fichiers fermes !\n",NB_FOPEN,NB_FCLOSE);
 
-    NB_FCLOSE++;
     fclose(fichier_memoire);
 }

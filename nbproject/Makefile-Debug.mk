@@ -38,7 +38,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/bilan_memoire.o \
 	${OBJECTDIR}/grille.o \
 	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/resolution.o
+	${OBJECTDIR}/resolution.o \
+	${OBJECTDIR}/test.o
 
 
 # C Compiler Flags
@@ -68,22 +69,27 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/l3s5_sudoku_c.exe: ${OBJECTFILES}
 ${OBJECTDIR}/bilan_memoire.o: bilan_memoire.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/bilan_memoire.o bilan_memoire.c
+	$(COMPILE.c) -g -Wall -I../build/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/bilan_memoire.o bilan_memoire.c
 
 ${OBJECTDIR}/grille.o: grille.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/grille.o grille.c
+	$(COMPILE.c) -g -Wall -I../build/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/grille.o grille.c
 
 ${OBJECTDIR}/main.o: main.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.c
+	$(COMPILE.c) -g -Wall -I../build/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.c
 
 ${OBJECTDIR}/resolution.o: resolution.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/resolution.o resolution.c
+	$(COMPILE.c) -g -Wall -I../build/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/resolution.o resolution.c
+
+${OBJECTDIR}/test.o: test.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -Wall -I../build/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/test.o test.c
 
 # Subprojects
 .build-subprojects:

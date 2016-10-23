@@ -1,4 +1,4 @@
-﻿/******************************************************************************!
+/******************************************************************************!
  * \file     grille.c
  * \author   Durand Kévin
  * \author   Soupramanian Arnold
@@ -12,6 +12,19 @@
  ******************************************************************************/
 
 #include "grille.h"
+
+Position* initPosition(int y, int x){
+    Position *p = (Position*)malloc(sizeof(Position));
+    *p = (Position){y,x};
+    return p;
+}
+
+int estValidePosition(Position *p){
+    if(  (p->x)>=0 && (p->x)<TAILLE 
+       &&(p->y)>=0 && (p->y)<TAILLE )
+        return TRUE;
+    return FALSE;
+}
 
 void initCase(Case *c){
     c->valeur = c->constante = c->solution = 0;
