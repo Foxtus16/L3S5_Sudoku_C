@@ -167,33 +167,116 @@ void testResolutionGrilleVide(void){
 }
 
 void testSDL(void){
-    // Fenetre ou tout va s'afficher
-    SDL_Window* fenetre = NULL;
-    // Surface contenu dans la fenetre
-    SDL_Surface* ecran = NULL;
-    if(!initSDL(fenetre,ecran)){
-        printf("Erreur lors de la création fenêtre SDL");
+    // Notre sudoku en SDL
+    Sudoku* sudoku = initSudoku();
+    
+    if(!initSDL(sudoku)){
+        printf("Erreur lors de la creation fenetre SDL");
         exit(404);
     }
-    // Pour savoir lorsque l'on quitte le programme
-    int quitter = FALSE;
-    // Gère les evenement en SDL
-    SDL_Event e;
-    // Boucle de jeu
-    while(!quitter){
-        // FILE des événements (interaction clavier/souris, joystick, etc..)
-        // Boucle d'événement jusqu'à ce que la FILE soit vide
-        while(!SDL_PollEvent(&e)){
-            //Si on ferme la fenêtre SDL
-            switch(e.type){
-                case SDL_QUIT:
-                    quitter = TRUE;
-                    break;
-                default:
-                    break;
-            }
-        }
+    
+    if(!configureSudoku(sudoku)){
+        printf("Erreur lors de la configuration du sudoku !\n");
+        exit(404);
     }
     
-    quitSDL(fenetre,ecran);
+    SDL_Color cTxt = {0,0,0}; //noir en rgb
+    Menu *menuPrincipal=initMenu(), *menuDiff=initMenu();
+    char *textMenuP[] = { "Jouer", "Quitter" };
+    char *textMenuD[] = { "Facile","Moyen","Difficule","Quitter"};
+    if( !configMenu(menuPrincipal,2,textMenuP,cTxt,sudoku)
+      ||!configMenu(menuDiff,4,textMenuD,cTxt,sudoku) ){
+            printf("Erreur lors de la configuration des menu !\n");
+            exit(404);
+    }
+
+    // Rendu du text
+    if(!(sudoku->fdTitre= chargeTexte("Sudoku", cTxt, sudoku,
+                                     &sudoku->rectTitre))){
+        printf("Fail pour rendre la texture text!\n");
+        exit(404);
+    }
+    sudoku->rectTitre.x = (ECRAN_LARGEUR/2) - (sudoku->rectTitre.w /2);
+    sudoku->rectTitre.y = HAUTEUR_TITRE;
+
+    // Gère les evenement en SDL
+    SDL_Event e; 
+    Position *p = initPosition(0,0);
+    NavigationMenu nav = MENUPRINCIPAL;
+    Difficulte diff = NEANT;
+    // Boucle de jeu
+    while(sudoku->enJeu){
+        // Recupère les entres utilisateur
+        sudoku->enJeu = recupEntree(&e,p);
+        //Nettoye l'écran
+        SDL_RenderClear(sudoku->rendu);
+        // Navigation entre les écran 
+        switch(nav){
+            case MENUPRINCIPAL:
+                SDL_RenderCopy(sudoku->rendu,sudoku->fdMenu,NULL,NULL);
+                SDL_RenderCopy(sudoku->rendu,sudoku->fdTitre
+                               ,NULL,&sudoku->rectTitre);
+                dessinMenu(menuPrincipal,sudoku);
+                // Gestion des clic
+                if(estDansRect(&menuPrincipal->rect[0],p)){
+                    nav = MENUDIFF;
+                }
+                else if(estDansRect(&menuPrincipal->rect[1],p)){
+                    sudoku->enJeu = FALSE;
+                }
+                break;
+            case MENUDIFF:
+                SDL_RenderCopy(sudoku->rendu,sudoku->fdMenu,NULL,NULL);
+                SDL_RenderCopy(sudoku->rendu,sudoku->fdTitre
+                               ,NULL,&sudoku->rectTitre);
+                dessinMenu(menuDiff,sudoku);
+                // Gestion des clic
+                if(estDansRect(&menuPrincipal->rect[0],p)){
+                    diff = FACILE;
+                }
+                else if(estDansRect(&menuDiff->rect[1],p)){
+                    diff = MOYEN;
+                }
+                else if(estDansRect(&menuDiff->rect[2],p)){
+                    diff = DIFFICILE;
+                }
+                else if(estDansRect(&menuDiff->rect[3],p)){
+                    sudoku->enJeu = FALSE;
+                }
+                break;
+            case ENJEU:
+                break;
+            case ECRANFIN:
+                break;
+            default:
+                break;
+        }
+        // Actualise le rendu à la fenetre
+        SDL_RenderPresent(sudoku->rendu);
+        // Si l'on appuie sur le bouton 0
+//        if (estDansRect(&m->rect[0],p)){
+//            
+//        }
+//        // Le dernier bouton est toujours quitter 
+//        else if(estDansRect(&m->rect[m->nb-1],p)){
+//            sudoku->enJeu = FALSE;
+//        }
+        
+        //Rendu texture vers l'écran
+
+//        SDL_RenderCopy(sudoku->rendu,test,NULL,NULL);
+        // Donne une couleur au rectangle
+//        SDL_SetRenderDrawColor(sudoku->rendu, 0x00, 0x00, 0x00, 0x00);
+        //Trace le rendu du rectangle
+//        SDL_RenderDrawRect(sudoku->rendu,&sudoku->rectMenu);
+        //Trace une ligne
+//        SDL_RenderDrawLine(sudoku->rendu, 0, 0, ECRAN_LARGEUR, ECRAN_HAUTEUR);
+        //Actualise l'écran
+           
+    }
+
+    freeMenu(menuPrincipal);
+    freeMenu(menuDiff);
+    free(p);
+    quitSDL(sudoku);
 }

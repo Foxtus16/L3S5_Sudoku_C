@@ -98,7 +98,7 @@ Arbre* initArbre(Grille *g){
     return arb;
 }
 
-int estDansLigne(int val, Grille *g, Position *p){
+Boolean estDansLigne(int val, Grille *g, Position *p){
     int j;
     //g->c[ligne][colonne], l'on fait donc varier la colonne 
     for(j=0;j<TAILLE;j++){
@@ -108,7 +108,7 @@ int estDansLigne(int val, Grille *g, Position *p){
     return FALSE;
 }
 
-int estDansCol(int val, Grille *g, Position *p){
+Boolean estDansCol(int val, Grille *g, Position *p){
     int i;
     // on fait varier la ligne
     for(i=0;i<TAILLE;i++){
@@ -118,7 +118,7 @@ int estDansCol(int val, Grille *g, Position *p){
     return FALSE;  
 }
 
-int estDansSsReg(int val, Grille *g, Position *p){
+Boolean estDansSsReg(int val, Grille *g, Position *p){
     // on récupère la ligne, colonne  on lui enleve son modulo par 3 pour 
     // avoir l'origine de la sous-région où l'on est
     Position o;
@@ -135,7 +135,7 @@ int estDansSsReg(int val, Grille *g, Position *p){
     return FALSE; 
 }
 
-int estPossible(int val, Grille *g, Position *p){
+Boolean estPossible(int val, Grille *g, Position *p){
    // Vérifie que la position est correcte
     if(estValidePosition(p)){
          // Vérifie que la case est vide et non constante
@@ -151,7 +151,7 @@ int estPossible(int val, Grille *g, Position *p){
     return FALSE;
 }
 
-int grilleComplete(Grille *g){
+Boolean grilleComplete(Grille *g){
     Position *p = initPosition(0,0);
     for(p->y=0;p->y<(g->longueur);p->y++){
         for(p->x=0;p->x<(g->hauteur);p->x++){
@@ -165,7 +165,7 @@ int grilleComplete(Grille *g){
     return TRUE;
 }
 
-int estResolue(Grille *g, Checkpoint* chemin){
+Boolean estResolue(Grille *g, Checkpoint* chemin){
     // Des qu'on arrive à la fin du chemin
     if(!chemin){
         // Si la grille a été complété alors on a finit de resoudre
@@ -200,7 +200,7 @@ int estResolue(Grille *g, Checkpoint* chemin){
     return FALSE;
 }
 
-int grilleResolue(Grille *g){
+Boolean grilleResolue(Grille *g){
     Position *p = initPosition(0,0);
     int val=0,sol=0;
     for(p->y=0;p->y<(g->longueur);p->y++){

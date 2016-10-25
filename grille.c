@@ -19,7 +19,7 @@ Position* initPosition(int y, int x){
     return p;
 }
 
-int estValidePosition(Position *p){
+Boolean estValidePosition(Position *p){
     if(  (p->x)>=0 && (p->x)<TAILLE 
        &&(p->y)>=0 && (p->y)<TAILLE )
         return TRUE;

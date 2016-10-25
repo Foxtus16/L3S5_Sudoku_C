@@ -21,8 +21,8 @@
 
 /*! \struct  Position
  *  \brief   Type pour savoir la position dans la grille
- *  \details Cette structue sert pour déterminer où placer une valeur sur la 
- *           grille de sudoku dont l'origine est en haut à gauche */
+ *  \details Cette struture peut servir d'indice i=y, j=x pour parcourir le
+ *           tableau de la grille ou de coordonnée x,y pour la sdl  */
 typedef struct Position{
     int y; /*!< axe des ordonnées (ligne) */
     int x; /*!< axe des abscisses (colonne) */
@@ -50,11 +50,11 @@ typedef struct Grille{
  *  \return Un élément Position alloué dynamiquement à libérer*/
 Position* initPosition(int y, int x);
 
-/*! \fn int estValidePosition(Position *p)
+/*! \fn Boolean estValidePosition(Position *p)
  *  \brief Vérifie que la position ne sort pas de la grille
  *  \param p: Position que l'on vérifie 
  *  \return TRUE si ok sinon FALSE*/
-int estValidePosition(Position *p);
+Boolean estValidePosition(Position *p);
 
 /*! \fn void initCase(Case *c)
  *  \brief Init une Case 

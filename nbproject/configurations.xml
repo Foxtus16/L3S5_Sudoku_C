@@ -59,7 +59,7 @@
           </incDir>
         </ccTool>
         <linkerTool>
-          <commandLine>-lmingw32 -lSDL2main -lSDL2</commandLine>
+          <commandLine>-lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf</commandLine>
         </linkerTool>
       </compileType>
       <item path="bilan_memoire.c" ex="false" tool="0" flavor2="0">

@@ -62,7 +62,10 @@ void freeChemin(Checkpoint* chemin);
 
 /*! \struct  Arbre
  *  \brief   Structure d'un arbre à 9 branche tableau dont l'indice = chiffre
- *  \details L'on peut ainsi parcourir notre grille à l'aide du backtracking */
+ *  \details L'on peut ainsi parcourir notre grille à l'aide du backtracking 
+ *  \todo resoudre comment parcourir la grille avec un arbre, devoir copier
+ *          une grille a chaque branche ?
+ */
 typedef struct arbre{
     struct arbre* c[9];
     Grille *g;
@@ -74,31 +77,31 @@ typedef struct arbre{
  *  \return l'arbre crée */
 Arbre* initArbre(Grille *g);
 
-/*! \fn int int estDansLigne(int val, Grille *g, Position *p)
+/*! \fn Boolean estDansLigne(int val, Grille *g, Position *p)
  *  \brief Vérifie si le chiffre est déjà présent dans la ligne 
  *  \param val: Valeur que l'on veut insérer
  *  \param g:   Grille où l'on veut insérer l'élément
  *  \param pos: Position sur la grille où l'on veut insérer le chiffre
  *  \return Renvoit TRUE si valeur déjà présente dans la ligne sinon FALSE */
-int estDansLigne(int val, Grille *g, Position *p);
+Boolean estDansLigne(int val, Grille *g, Position *p);
 
-/*! \fn int estDansCol(int val, Grille *g, Position *p)
+/*! \fn Boolean estDansCol(int val, Grille *g, Position *p)
  *  \brief Vérifie si le chiffre est déjà présent dans la colonne 
  *  \param val: Valeur que l'on veut insérer
  *  \param g:   Grille où l'on veut insérer l'élément
  *  \param pos: Position sur la grille où l'on veut insérer le chiffre
  *  \return Renvoit TRUE si valeur déjà présente dans la col sinon FALSE */
-int estDansCol(int val, Grille *g, Position *p);
+Boolean estDansCol(int val, Grille *g, Position *p);
 
-/*! \fn int estDansSsReg(int val, Grille *g, Position *p)
+/*! \fn Boolean estDansSsReg(int val, Grille *g, Position *p)
  *  \brief Vérifie si le chiffre est déjà présent dans la ss-region 
  *  \param val: Valeur que l'on veut insérer
  *  \param g:   Grille où l'on veut insérer l'élément
  *  \param pos: Position sur la grille où l'on veut insérer le chiffre
  *  \return Renvoit TRUE si valeur déjà présente ds la ss reg sinon FALSE */
-int estDansSsReg(int val, Grille *g, Position *p);
+Boolean estDansSsReg(int val, Grille *g, Position *p);
 
-/*! \fn int estPossible(Grille *g, Position *p)
+/*! \fn Boolean estPossible(Grille *g, Position *p)
  *  \brief Regroupe les 3 conditions 'ligne, col, ssreg' 
  *  \param val: Valeur que l'on veut ajouter  
  *  \param g:   Grille de sudoku où l'on travaille
@@ -106,15 +109,15 @@ int estDansSsReg(int val, Grille *g, Position *p);
  *  \pre On vérifie que position appartient à la grille
  *       On vérifie que la case est vide
  *  \return Renvoit TRUE si possible sinon FALSE */
-int estPossible(int val, Grille *g, Position *p);
+Boolean estPossible(int val, Grille *g, Position *p);
 
-/*! \fn int grilleComplete(Grille *g)
+/*! \fn Boolean grilleComplete(Grille *g)
  *  \brief Indique si la grille a été remplie (pas forcement bien)
  *  \param g:   Grille de sudoku où l'on travaille
  *  \return Renvoit TRUE si remplie sinon FALSE */
-int grilleComplete(Grille *g);
+Boolean grilleComplete(Grille *g);
 
-/*! \fn int estResolue(Grille *g, Checkpoint* chemin)
+/*! \fn Boolean estResolue(Grille *g, Checkpoint* chemin)
  *  \brief Fonction récursive pour résoudre le sudoku
  *  \details Cette fonction va parcourir le chemin en testant chaque 
  *           possibilité d'un checkpoint et passe au suivant 
@@ -125,15 +128,15 @@ int grilleComplete(Grille *g);
  *  \pre   On verifie que l'on est pas à la fin du chemin 
  *  \return Renvoit TRUE si l'on atteind la fin du chemin
  *          sinon renvoit FALSE */
-int estResolue(Grille *g,Checkpoint* chemin);
+Boolean estResolue(Grille *g,Checkpoint* chemin);
 
-/*! \fn int grilleResolue(Grille *g)
+/*! \fn Boolean grilleResolue(Grille *g)
  *  \brief Indique si la grille a été résolue pour intéraction avec joueur
  *  \param g:   Grille de sudoku où l'on travaille
  *  \pre On vérifie que toutes les cases soient remplies
  *       On vérifie que chaque valeur est possible
  *  \return Renvoit TRUE si résolue sinon FALSE */
-int grilleResolue(Grille *g);
+Boolean grilleResolue(Grille *g);
 
 #endif /* RESOLUTION_H */
 

@@ -48,14 +48,29 @@ void mon_fclose(FILE* fichier_ouvert){
     fclose(fichier_ouvert);
 }
 
-//SDL_Surface* mon_IMG_Load(const char *file){
-//    NB_SURFACEALLOUE++;
-//    return IMG_Load(file);
-//}
+SDL_Surface* mon_IMG_Load(const char *file){
+    NB_SURFACEALLOUE++;
+    return IMG_Load(file);
+}
 
 void mon_SDL_free (SDL_Surface* surface){
     NB_FREESURFACE++;
     return SDL_FreeSurface(surface);
+}
+
+SDL_Surface* monRenderTextSolid(TTF_Font* f,const char* text, SDL_Color fg){
+    NB_SURFACEALLOUE++;
+    return TTF_RenderText_Solid(f,text,fg);
+}
+
+SDL_Texture* monCreatTexture(SDL_Renderer* r, SDL_Surface *sf){
+    NB_SURFACEALLOUE++;
+    return SDL_CreateTextureFromSurface(r,sf);
+}
+
+void monDestroyTexture(SDL_Texture* t){
+    NB_FREESURFACE++;
+    SDL_DestroyTexture(t);
 }
 
 void bilan_memoire(void){

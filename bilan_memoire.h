@@ -20,6 +20,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 /*! \fn void *mon_malloc (size_t size)
  *  \brief Fonction appelant malloc et incrémente NB_MALLOC (global).
@@ -60,6 +62,18 @@ SDL_Surface* mon_IMG_Load(const char* file);
  *  \brief Lance SDL_FreeSurface et incrémente NB_FREESURFACE
  *  \param surface: Surface libérée */
 void mon_SDL_free(SDL_Surface* surface);
+
+/*! \fn SDL_Surface* monRenderTextSolid(TTF_Font* f,const char* text, SDL_Color fg)
+ *  \brief Lance TTF_RenderText_Solid et incrémente NB_FREESURFACE */
+SDL_Surface* monRenderTextSolid(TTF_Font* f,const char* text, SDL_Color fg);
+
+/*! \fn SDL_Texture* monCreatTexture(SDL_Renderer* r, SDL_Surface *sf)
+ *  \brief Lance SDL_CreateTextureFromSurface et incrémente NB_FREESURFACE */
+SDL_Texture* monCreatTexture(SDL_Renderer* r, SDL_Surface *sf);
+
+/*! \fn void monDestroyTexture(SDL_Texture* t)
+ *  \brief Lance SDL_DestroyTexture et incrémente NB_FREESURFACE */
+void monDestroyTexture(SDL_Texture* t);
 
 /*! \fn void bilan_memoire(void)
  *  \brief Ecrit le bilan mémoire dans un fichier placé à la racine du projet */
