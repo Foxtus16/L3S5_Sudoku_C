@@ -77,3 +77,43 @@ void afficherGrille(Grille *g){
             }
             printf("\n");
 }
+
+int getCasesEnlever(Difficulte diff){
+    int casesEnlever = 0;
+        switch (diff){
+            case FACILE:
+                casesEnlever = 50;
+                return casesEnlever;
+            break;
+            
+            case MOYEN:
+                casesEnlever = 40;
+                return casesEnlever;
+            break;
+            
+        case DIFFICILE:
+                casesEnlever = 30;
+                return casesEnlever;
+            break;
+    }
+}
+
+void creeGrilleJouable(Grille *g, Difficulte diff) {
+    estResolue(g);
+    int i,x,y;
+    for (i = 0; i < (TAILLE*TAILLE)-getCasesEnlever(diff); i++) {
+        do {
+            x = rand()%TAILLE;
+            y = rand()%TAILLE;
+        } while(!g->c[x][y].valeur);
+        
+        g->c[x][y].valeur = 0;
+    }
+    for (x = 0; x < TAILLE; x++) {
+        for (y = 0; y < TAILLE; y++) {
+            if (g->c[x][y].valeur){
+                g->c[x][y].constante = TRUE;
+            }
+        }
+    }
+}

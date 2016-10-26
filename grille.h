@@ -28,6 +28,13 @@ typedef struct Position{
     int x; /*!< axe des abscisses (colonne) */
 }Position;
 
+typedef enum Difficulte{
+    NEANT = 0,
+    FACILE = 1,
+    MOYEN =2,
+    DIFFICILE=3
+}Difficulte;
+
 /*! \struct  Case
  *  \brief   Type pour les case d'une grille de sudoku
  *  \details Cette structure nous sert à savoir si la valeur est constante, 
@@ -75,6 +82,15 @@ void freeGrille(Grille *g);
  *  \brief Affiche une grille de Sudoku  */
 void afficherGrille(Grille *g);
 
+
+/*! \fn void getCasesEnlever(Difficulte diff);
+ *  \brief Récupère les cases à enlever en fonction de la diffculté choisie par l'utilisateur  */
+int getCasesEnlever(Difficulte diff);
+
+
+/*! \fn créerGrilleJouable(Grille *g, char difficulté);
+ *  \brief Vide n cases en fonction de la difficulté choisie et définit les cases remplies comme constantes*/
+void creeGrilleJouable(Grille *g, Difficulte diff);
 
 #endif /* GRILLE_H */
 
